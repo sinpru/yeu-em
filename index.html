@@ -5,98 +5,178 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chúc Mừng 20/10</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Borel&display=swap');
+
         body {
-            font-family: 'Dancing Script', cursive;
-            background: linear-gradient(to bottom, #fce4ec, #f8bbd0);
+            font-family: 'Borel', cursive;
+            background: linear-gradient(120deg, #c9e9ff, #a4d4ff);
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .envelope-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            cursor: pointer;
+            transition: opacity 0.8s 1.2s;
+        }
+
+        .envelope {
+            position: relative;
+            width: 500px;
+            height: 300px;
+        }
+
+        .back, .left-flap, .right-flap, .top-flap, .bottom-flap {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .back {
+            width: 500px;
+            height: 300px;
+            background-color: #f8b6c1;
+            z-index: 0;
+        }
+        
+        .left-flap {
+            left: 0; top: 0;
+            border-top: 150px solid transparent;
+            border-bottom: 150px solid transparent;
+            border-left: 250px solid #f9c9d3;
+            z-index: 1;
+        }
+
+        .right-flap {
+            right: 0; top: 0;
+            border-top: 150px solid transparent;
+            border-bottom: 150px solid transparent;
+            border-right: 250px solid #f9c9d3;
+            z-index: 1;
+        }
+
+        .bottom-flap {
+            bottom: 0; left: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-bottom: 150px solid #fbdde3;
+            z-index: 2;
+        }
+        
+        .top-flap {
+            top: 0; left: 0;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-top: 150px solid #fce9ef;
+            transform-origin: top center;
+            transition: transform 0.7s ease-in-out;
+            z-index: 3;
+        }
+        
+        .envelope-wrapper.open .top-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope-wrapper.open {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            overflow: hidden;
-            text-align: center;
-        }
-        .card {
-            background-color: white;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 2;
-        }
-        h1 {
-            color: #c2185b;
-            font-size: 3.5em;
-            margin-bottom: 20px;
-        }
-        p {
-            color: #555;
-            font-size: 1.5em;
-            max-width: 600px;
-            margin: 0;
-        }
-        .heart {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #e91e63;
-            transform: rotate(45deg);
-            animation: fall 10s linear infinite;
-        }
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #e91e63;
-            border-radius: 50%;
-        }
-        .heart::before {
-            top: -10px;
-            left: 0;
-        }
-        .heart::after {
-            top: 0;
-            left: -10px;
+            opacity: 0;
+            transition: opacity 1s 0.7s;
         }
 
-        @keyframes fall {
-            0% {
-                transform: translateY(-10vh) rotate(45deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(110vh) rotate(45deg);
-                opacity: 0;
-            }
+        .envelope-wrapper.open ~ .container {
+            opacity: 1;
         }
-        /* Import Google Font */
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9); padding: 50px; border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15); position: relative; z-index: 2; text-align: center;
+        }
+
+        h1 { color: #c2185b; font-size: 3.5em; margin-bottom: 20px; }
+        p { color: #444; font-size: 1.5em; max-width: 600px; margin: 0 auto; line-height: 1.6; text-align: justify; }
+        .heart { position: absolute; top: 0; background-color: #e91e63; transform: rotate(-45deg); animation: fall 10s linear infinite; pointer-events: none; }
+        .heart::before, .heart::after { content: ''; position: absolute; background-color: #e91e63; border-radius: 50%; width: 100%; height: 100%; }
+        .heart::before { top: -50%; left: 0; }
+        .heart::after { top: 0; left: 50%; }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(-45deg); } 80% { opacity: inherit; }
+            100% { transform: translateY(110vh) translateX(var(--sway)) rotate(-45deg); opacity: 0; }
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>Chúc Mừng Ngày 20/10</h1>
-        <p>Nhân ngày Phụ nữ Việt Nam, xin gửi những lời chúc tốt đẹp nhất đến một nửa thế giới. Chúc các bà, các mẹ, các chị, các em luôn xinh đẹp, rạng rỡ và ngập tràn hạnh phúc!</p>
+
+    <audio id="background-music" src="media/忘れる前に - Vaundy.mp3" loop></audio>
+    
+    <div class="envelope-wrapper">
+        <div class="envelope">
+            <div class="back"></div>
+            <div class="left-flap"></div>
+            <div class="right-flap"></div>
+            <div class="bottom-flap"></div>
+            <div class="top-flap"></div>
+        </div>
     </div>
+    
+    <main class="container">
+        <div class="card">
+            <h1>Chúc Mừng Ngày 20/10</h1>
+            <p>
+                Nhân ngày này, chúc em luôn vui tươi xinh đẹp, luôn rạng rỡ, luôn tươi cười khi bên cạnh anh.
+                Cảm ơn em vì đã luôn ở bên, lắng nghe, chia sẻ và cảm thông cho anh.
+                Anh mong anh sẽ mãi được làm con chó của em 🐶
+            </p>
+        </div>
+    </main>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const envelope = document.querySelector('.envelope-wrapper');
+            const music = document.getElementById('background-music');
+            
+            envelope.addEventListener('click', () => {
+                envelope.classList.add('open');
+                
+                if (music) {
+                    music.volume = 0.2;
+                    music.play();
+                }
+                
+                setInterval(createHeart, 250);
+
+            }, { once: true });
+        });
+
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = Math.random() * 5 + 5 + 's'; // 5-10s
-
             document.body.appendChild(heart);
-
-            setTimeout(() => {
-                heart.remove();
-            }, 10000);
+            const size = Math.random() * 20 + 10;
+            const startX = Math.random() * 100;
+            const duration = Math.random() * 5 + 8;
+            const sway = (Math.random() - 0.5) * 200;
+            heart.style.width = size + 'px'; heart.style.height = size + 'px';
+            heart.style.left = startX + 'vw'; heart.style.animationDuration = duration + 's';
+            heart.style.opacity = Math.random() * 0.7 + 0.3;
+            heart.style.setProperty('--sway', sway + 'px');
+            setTimeout(() => { heart.remove(); }, duration * 1000);
         }
-
-        setInterval(createHeart, 300);
     </script>
 </body>
 </html>
